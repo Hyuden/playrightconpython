@@ -2,6 +2,9 @@ name: Suite de Pruebas Automáticas Playwright
 
 # Triggers: Cuándo debe ejecutarse la pipeline
 on:
+  workflow_dispatch:  # <-- ¡Esto activa el botón manual!
+  push:
+    branches: [ main ]
   push:
     branches: [ main ]
   pull_request:
