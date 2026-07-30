@@ -1,0 +1,15 @@
+# Entorno virtual de Python
+venv/
+.venv/
+env/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Carpetas de reportes y resultados (se generarán solas en la Pipeline)
+allure-results/
+allure-report/
+reporte*.html
+.pytest_cache/
+test-results/

@@ -1,0 +1,10 @@
+{
+    "chat.byokUtilityModelDefault": "mainAgent",
+    "python-envs.pythonProjects": [
+        {
+            "path": "pages/tests",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
+}
