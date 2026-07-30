@@ -1,8 +1,7 @@
 name: Suite de Pruebas Automáticas Playwright
 
-# Triggers: Cuándo debe ejecutarse la pipeline
 on:
-  workflow_dispatch:  # Permite ejecutar manualmente con un botón en GitHub
+  workflow_dispatch:  # Botón manual
   push:
     branches: [ main ]
   pull_request:
@@ -14,33 +13,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Descargar el código del repositorio de GitHub
+    # 1. Descargar el código
     - name: Checkout del proyecto
       uses: actions/checkout@v4
 
-    # 2. Configurar Python en la máquina virtual
+    # 2. Configurar Python
     - name: Configurar Python 3.11
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
-    # 3. Instalar dependencias necesarias
+    # 3. Instalar librerías
     - name: Instalar librerías de Python
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-playwright pytest-html allure-pytest
 
-    # 4. Instalar los navegadores de Playwright
+    # 4. Instalar Chromium
     - name: Instalar navegadores de Playwright
       run: |
         playwright install --with-deps chromium
 
-    # 5. Ejecutar la suite de pruebas
+ # 5. Ejecutar PyTest mediante el módulo de Python con PYTHONPATH
     - name: Ejecutar pruebas de Retail con PyTest
+      env:
+        PYTHONPATH: .
       run: |
-        pytest tests/ --html=reporte_pipeline.html --self-contained-html
-
-    # 6. Guardar el reporte HTML resultante como un archivo descargable (Artefacto)
+        python -m pytest tests/ --html=reporte_pipeline.html --self-contained-html
+    # 6. Subir reporte como artefacto
     - name: Subir Reporte HTML como Artefacto
       if: always()
       uses: actions/upload-artifact@v4
